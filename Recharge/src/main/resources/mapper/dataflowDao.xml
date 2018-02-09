@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.webkit.recharge.dao.IDataflowDao">
+
+    <select id="selectById" resultType="Dataflow" parameterType="Long">
+        SELECT D.* FROM dataflow D WHERE id = #{id}
+    </select>
+
+    <select id="selectNameById" resultType="String" parameterType="Long">
+        SELECT D.packageName FROM dataflow D WHERE id = #{id}
+    </select>
+
+    <select id="selectPackageName" resultType="Dataflow" parameterType="String">
+        SELECT D.* FROM dataflow D WHERE packageName = #{packageName} ORDER BY packageType ASC, packageSize ASC
+    </select>
+
+    <select id="findAll" resultType="Dataflow" parameterType="long">
+        SELECT D.* FROM dataflow D  ORDER BY packageType ASC, packageSize ASC
+    </select>
+
+    <select id="findAllDefault" resultType="Dataflow">
+        SELECT D.* FROM dataflow D WHERE packageType = 100 AND isMobile = 1 AND isTelecom = 1 AND isUnicom = 1 ORDER BY packageType ASC, packageSize ASC
+    </select>
+
+    <select id="selectMobile" resultType="Dataflow" parameterType="Integer">
+        SELECT D.* FROM dataflow D WHERE isMobile = 1 AND qCellCoreCode IN (0,#{qCellCoreCode}) ORDER BY packageType ASC, packageSize ASC
+    </select>
+
+    <select id="selectTelecom" resultType="Dataflow">
+        SELECT D.* FROM dataflow D WHERE isTelecom = 1 AND qCellCoreCode IN (0,#{qCellCoreCode}) ORDER BY packageType ASC, packageSize ASC
+    </select>
+
+    <select id="selectUnicom" resultType="Dataflow">
+        SELECT D.* FROM dataflow D WHERE isUnicom = 1 AND qCellCoreCode IN (0,#{qCellCoreCode}) ORDER BY packageType ASC, packageSize ASC
+    </select>
+
+    <insert id="create" parameterType="Dataflow">
+        <selectKey resultType="java.lang.Short" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO dataflow (packageName, packageSize, businessType, validTime, mobilePrice, telecomPrice, unicomPrice, discount, qCellCoreCode, packageType, itemId, itemName, isMobile, isTelecom, isUnicom, gmtCreate, gmtModified) VALUES (#{packageName}, #{packageSize}, #{businessType}, #{validTime},
+        #{mobilePrice}, #{telecomPrice}, #{unicomPrice}, #{discount}, #{qCellCoreCode}, #{packageType}, #{itemId}, #{itemName}, #{isMobile}, #{isTelecom}, #{isUnicom}, #{gmtCreate}, #{gmtModified})
+    </insert>
+
+</mapper>

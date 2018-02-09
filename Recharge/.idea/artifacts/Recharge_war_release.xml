@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="Recharge:war release">
+    <output-path>G:/PROJECT</output-path>
+    <root id="archive" name="Recharge_war release.war">
+      <element id="artifact" artifact-name="Recharge:war exploded" />
+      <element id="dir-copy" path="$PROJECT_DIR$/target/Recharge" />
+    </root>
+  </artifact>
+</component>

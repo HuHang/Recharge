@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IDiscountDao接口方法提供sql语句配置 -->
+<mapper namespace="com.webkit.recharge.dao.IDiscountDao">
+    <select id="selectId" resultType="Discount" parameterType="long">
+        SELECT D.* FROM discount D WHERE id = #{id}
+    </select>
+
+    <select id="selectByBusinessType" resultType="Discount" parameterType="Integer">
+        SELECT D.* FROM discount D WHERE businessType = #{businessType}
+    </select>
+
+    <select id="findAll" resultType="Discount" parameterType="long">
+        SELECT D.* FROM discount D
+    </select>
+
+    <insert id="create" parameterType="Discount">
+        <selectKey resultType="java.lang.Short" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO discount (standardDiscount, businessType, gmtCreate, gmtModified) VALUES (#{standardDiscount},
+        #{businessType}, #{gmtCreate}, #{gmtModified})
+    </insert>
+
+    <update id="update" parameterType="Discount">
+        UPDATE discount SET discount.standardDiscount = #{standardDiscount}, discount.gmtModified = #{gmtModified} WHERE discount.id = #{id};
+    </update>
+
+</mapper>

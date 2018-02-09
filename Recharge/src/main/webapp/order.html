@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>我的订单</title>
+
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<style>
+			body>.mui-progressbar {
+				top: 0
+			}
+			
+			.mui-card-header p.stateStr {
+				color: #c70108;
+				font-size: 0.8em;
+			}
+			
+			.mui-card-content {
+				padding-top: 10px;
+				padding-left: 10px;
+				padding-bottom: 10px;
+				padding-right: 20px;
+			}
+			
+			.mui-card div.businessTypeStr {
+				color: black;
+				font-size: 1em;
+			}
+			
+			.mui-card p.phoneNr,
+			.mui-card p.orderName,
+			.mui-card p.gmtCreate,
+			.mui-card p.serialNumber {
+				color: #778899;
+				font-size: 0.8em;
+			}
+			
+			.mui-card p.transactionSum {
+				color: #778899;
+				font-size: 0.8em;
+				text-align: right;
+			}
+			
+			.mui-table-view:after {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="mui-content">
+
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#item1mobile">全部</a>
+					<a class="mui-control-item" href="#item2mobile">充值成功</a>
+					<a class="mui-control-item" href="#item3mobile">充值失败</a>
+					<a class="mui-control-item" href="#item4mobile">充值中</a>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="mui-row">
+			<ul class="mui-table-view mui-grid-10" id="order"></ul>
+		</div>
+		</div>
+	</body>
+	#set($assetsServer = $context.assetsServer)
+	#set($contextPath = $context.contextPath)
+	<script src="./js/jquery-3.3.1.min.js"></script>
+	<script src="./js/mui.min.js"></script>
+	<script src="./js/order.js"></script>
+	<script>
+		mui.init();
+		// 刚进入界面，请求
+		Order.getData(localStorage.getItem("phoneNr"),'')
+		
+		mui("#sliderSegmentedControl").on("tap",".mui-control-item",function(){
+			
+			var targerUrl = this.href;
+			alert(targerUrl);
+		})
+	</script>
+
+</html>

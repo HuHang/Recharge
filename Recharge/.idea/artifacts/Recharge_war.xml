@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Recharge:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Recharge.war">
+      <element id="artifact" artifact-name="Recharge:war exploded" />
+    </root>
+  </artifact>
+</component>

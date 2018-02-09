@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手机充值</title>
+
+    <link rel="stylesheet" href="./css/mui.min.css">
+    <style>
+
+    body>.mui-progressbar{
+        top:0
+    }
+
+    body,
+    .mui-bar,
+    .mui-content,
+    .mui-grid-9 {
+        background: white;
+        background-color: white!important;
+        border: none!important;
+    }
+
+    .mui-table-view-cell {
+        border: none!important;
+    }
+
+    #number-input {
+        border: 0;
+        border-radius: 0;
+        height: 5rem;
+        padding-left: 5%;
+        font-size: 1.4rem;
+        border-bottom: 1px solid #f2f2f2;
+        background-color: transparent;
+    }
+
+    #result {
+        color: #c70108;
+        margin-top: -40px;
+        margin-left: 5%;
+    }
+
+    .title-show {
+        padding-left: 5px;
+        margin-top: 6px;
+        margin-bottom: 2px;
+        color: #000000;
+        font-size: 1em;
+    }
+
+    #orderButton {
+        border: 0;
+        margin-right: 10px;
+        color: #4169E1;
+    }
+
+    #callFare li,
+    #dataFlow li {
+        padding: 5px;
+    }
+
+    .card {
+        border: 1px solid #c70108;
+        border-radius: 6px;
+    }
+
+    .card .mui-badge {
+        position: absolute;
+        right: 5px;
+        border-radius: 0;
+        top: -1px;
+        border-top-right-radius: 4px;
+    }
+
+    .card p.name {
+        color: #c70108;
+        margin-top: 10px;
+        font-size: 1em;
+    }
+
+    .card p.isOk {
+        color: #c70108;
+    }
+
+    .card p.price {
+        color: #c70108;
+        font-size: 0.6em;
+    }
+
+    .card p.validTime {
+        font-size: 0.5em;
+    }
+
+    .not-show {
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+<!--     <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title" style="color: #c70108;">话费流量充值</h1>
+    </header> -->
+
+    <div class="mui-content">
+        <!-- 输入电话号码 -->
+        <div class="mui-input-row">
+            <input id="number-input" maxlength="11" type="tel" class="mui-input-clear" placeholder="请输入手机号码">
+            <p id="result" class="not-show">归属地（上海移动）</p>
+        </div>
+
+        <div align="right">
+            <button type="button" class="mui-btn" id="orderButton">我的订单</button>
+        </div>
+        
+
+        <div class="mui-card">
+            <!--内容区-->
+            <div class="mui-card-content">
+                <p class="title-show" >话费充值</p>
+                <!-- 展示话费包 -->
+                <div class="mui-row">
+                    <ul class="mui-table-view mui-grid-view mui-grid-9" id="callFare"></ul>
+                </div>
+
+                <p class="title-show" >流量充值</p>
+                <div class="mui-row">
+                    <!-- 展示流量包 -->
+                    <ul class="mui-table-view mui-grid-view mui-grid-9" id="dataFlow"> </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script src="./js/jquery-3.3.1.min.js"></script>
+<script src="./js/mui.min.js"></script>
+<script src="./js/Recharge.js"></script>
+<script>
+
+    mui.init({
+        swipeBack: true, //启用右滑关闭功能
+    });
+
+    // localStorage.setItem("phoneNr",'')
+
+    var phoneNr = localStorage.getItem("phoneNr") == undefined ? '' : localStorage.getItem("phoneNr")
+    $("#number-input").val(phoneNr)
+    // 刚进入界面，请求
+    Recharge.getData(phoneNr);
+
+</script>
+
+</html>

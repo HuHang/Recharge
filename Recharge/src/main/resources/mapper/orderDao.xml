@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IOrderDao接口方法提供sql语句配置 -->
+<mapper namespace="com.webkit.recharge.dao.IOrderDao">
+    <select id="selectById" resultType="Order" parameterType="Long">
+        SELECT O.* FROM recharge_order O WHERE id = #{id}
+    </select>
+
+    <select id="selectByBusinessType" resultType="Order" parameterType="Integer">
+        SELECT O.* FROM recharge_order O WHERE businessType = #{businessType}
+    </select>
+
+    <select id="selectBySerialNumber" resultType="Order" parameterType="String">
+        SELECT O.* FROM recharge_order O WHERE serialNumber = #{serialNumber}
+    </select>
+
+    <select id="findAllByMobileTel" resultType="Order" parameterType="String">
+        SELECT O.* FROM recharge_order O WHERE mobileTel = #{mobileTel}
+    </select>
+
+
+    <select id="findAllSuccessByMobileTel" resultType="Order" parameterType="String">
+        SELECT O.* FROM recharge_order O WHERE mobileTel = #{mobileTel} AND state BETWEEN 600 AND 700
+    </select>
+
+    <select id="findAllFailureByMobileTel" resultType="Order" parameterType="String">
+        SELECT O.* FROM recharge_order O WHERE mobileTel = #{mobileTel} AND state BETWEEN 500 AND 600
+    </select>
+
+    <select id="findAllDoingByMobileTel" resultType="Order" parameterType="String">
+        SELECT O.* FROM recharge_order O WHERE mobileTel = #{mobileTel} AND state &lt; 400
+    </select>
+
+
+    <select id="findAll" resultType="Order" parameterType="long">
+        SELECT O.* FROM recharge_order O
+    </select>
+
+    <insert id="create" parameterType="Order">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        INSERT INTO recharge_order (businessType, packageId, mobileTel, serialNumber, qCellCoreCode, operatorCode, itemId, itemName, transactionSum, costPrice, state, describtion, gmtCreate, gmtModified) VALUES (#{businessType}, #{packageId}, #{mobileTel}, #{serialNumber},
+        #{qCellCoreCode}, #{operatorCode}, #{itemId}, #{itemName}, #{transactionSum}, #{costPrice}, #{state}, #{describtion}, #{gmtCreate}, #{gmtModified})
+    </insert>
+
+    <update id="update" parameterType="Order">
+        UPDATE recharge_order SET recharge_order.state = #{state}, recharge_order.rechargeState = #{rechargeState}, recharge_order.rechargeNumber = #{rechargeNumber},recharge_order.describtion = #{describtion}, recharge_order.gmtModified = #{gmtModified} WHERE recharge_order.id = #{id};
+    </update>
+
+</mapper>
